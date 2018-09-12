@@ -25,7 +25,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="${contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 	<script src="${contextPath}/resources/js/home.js"></script>
 </head>
@@ -33,30 +33,15 @@
 <body>
 
 <div id="main" class="container">
-
-    <%-- <form method="POST" action="${contextPath}/login" class="form-signin">
-        <h2 class="form-heading">Log in</h2>
-
-        <div class="form-group ${error != null ? 'has-error' : ''}">
-            <span>${message}</span>
-            <input name="username" type="text" class="form-control" placeholder="Username"
-                   autofocus="true"/>
-            <input name="password" type="password" class="form-control" placeholder="Password"/>
-            <span>${error}</span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-            <h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
-        </div>
-
-    </form> --%>
-    
-    <div id="searchDiv">
-    	Product Name: &nbsp; <input id="productName" /> &nbsp; <input type="button" onclick="searchNurseries()" />
+    <div class="searchDiv">
+<!--     	Product Name: &nbsp; <input id="productName" /> &nbsp; -->
+    	<input name="productName" id="productName" type="text" class="form-control" placeholder="Product Name"/>
+    	<input type="hidden">&nbsp;</input>
+    	<input type="button" class="btn btn-lg btn-primary btn-block" value="SEARCH" onclick="searchNurseries()" />
     </div>
+    <hr/>
     <div id="resultDiv">
-    	
-    	<table>
+    	<table class="result-table">
     		<tr>
     			<th> ID </th>
     			<th> Product </th>
@@ -71,12 +56,13 @@
 	    			<td> ${product.productName} </td>
 	    			<td> ${nursery.nurseryName} </td>
 	    			<td> ${nursery.price} </td>
-	    			<td> <input type="radio" name="product" onclick='fillData(${product.id},"${product.productName}",${nursery.id},"${nursery.nurseryName}", ${nursery.price})' /> </td>
+	    			<td align="center"> <input type="radio" name="product" onclick='fillData(${product.id},"${product.productName}",${nursery.id},"${nursery.nurseryName}", ${nursery.price})' /> </td>
     			</tr>
     			</c:forEach>
     		</c:forEach>
     	</table>
     </div>
+    <hr/>
     <div>
     	<form:form commandName="purchaseData" method="POST" action="${contextPath}/purchase" class="form-signin">
     		<input name="nurseryName" id="nurName" type="text" class="form-control" placeholder="Nursery" readonly="readonly"/>
@@ -84,7 +70,7 @@
     		<input name="productName" id="prodName" type="text" class="form-control" placeholder="Product" readonly="readonly"/>
     		<input type="hidden" id="product" name="product" />
     		<input name="quantity" id="quantity" type="text" class="form-control" placeholder="Quantity" autofocus="true" onchange="calculatePrice()"/>
-    		<input name="totalPrice" id="totalPrice" type="text" class="form-control" placeholder="Total Price"  readonly="readonly"/>
+    		<input name="totalPrice" id="totalPrice" type="text" class="form-control" placeholder="Total Price"/>
     		<input name="totalPricePaid" id="totalPricePaid" type="text" class="form-control" placeholder="Total Price Paid"/>
     		<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
     	</form:form>
@@ -92,7 +78,6 @@
     		Saved Successfully.
     	</c:if>
     </div>
-
 </div>
 
 
